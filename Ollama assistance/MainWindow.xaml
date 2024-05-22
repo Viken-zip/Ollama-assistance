@@ -104,9 +104,22 @@
                 </Menu>
             </Border>
 
-            <Grid Grid.Row="2" Background="#030303" >
-
-            </Grid>
+            <ScrollViewer Grid.Row="2" Background="#030303" >
+                <StackPanel>
+                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="white" Margin="200,5,5,5">
+                        <TextBlock Text="hi!" Background="white"  ></TextBlock>
+                    </Border>
+                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="LightBlue" Margin="5,5,200,5">
+                        <TextBlock Text="hello, how can i help you today?" Background="LightBlue" ></TextBlock>
+                    </Border>
+                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="white" Margin="200,5,5,5">
+                        <TextBlock Text="tell me 3 thasty things." Background="white" ></TextBlock>
+                    </Border>
+                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="LightBlue" Margin="5,5,200,5">
+                        <TextBlock Text="okay, there is cookies, cakes and candy." Background="LightBlue" ></TextBlock>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
 
             <Border BorderBrush="#343536" BorderThickness="1" CornerRadius="2" Grid.Row="3" Margin="2,0" VerticalAlignment="Center" >
                 <TextBox
