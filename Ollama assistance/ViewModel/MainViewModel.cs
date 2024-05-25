@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Forms;
+using Ollama_assistance.Utils;
 
 namespace Ollama_assistance.ViewModel
 {
     class MainViewModel : INotifyPropertyChanged
     {
+        // postion of the application
         public ObservableCollection<DisplayOption> Displays { get; set; }
         public ObservableCollection<CornerPosition> CornerPositions { get; set; }
         public ICommand SelectDisplayCommand { get; }
@@ -140,6 +142,8 @@ namespace Ollama_assistance.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
     }
 
     public class DisplayOption : INotifyPropertyChanged
@@ -194,31 +198,4 @@ namespace Ollama_assistance.ViewModel
         }
     }
 
-    public class RelayCommand : ICommand
-    {
-        private readonly Action<object> _execute;
-        private readonly Predicate<object> _canExecute;
-
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
-        {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute(parameter);
-        }
-
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-    }
 }
