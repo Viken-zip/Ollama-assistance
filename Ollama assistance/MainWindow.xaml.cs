@@ -23,10 +23,12 @@ namespace Ollama_assistance
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            _viewModel = new MainViewModel();
+            DataContext = _viewModel;
             this.Loaded += MainWindow_Loaded;
         }
 
@@ -93,6 +95,8 @@ namespace Ollama_assistance
                 chatContainer.Children.Add(border);
                 messageInputBox.Clear();
                 chatScrollViewer.ScrollToBottom();
+
+                _viewModel.SendMessage(message);
             }
         }
 

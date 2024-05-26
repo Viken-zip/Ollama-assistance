@@ -9,16 +9,18 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Forms;
 using Ollama_assistance.Utils;
+using Ollama_assistance.Services;
 
 namespace Ollama_assistance.ViewModel
 {
     class MainViewModel : INotifyPropertyChanged
     {
-        // postion of the application
+        // position of the application
         public ObservableCollection<DisplayOption> Displays { get; set; }
         public ObservableCollection<CornerPosition> CornerPositions { get; set; }
         public ICommand SelectDisplayCommand { get; }
         public ICommand SelectCornerCommand { get; }
+        public ICommand SendMessageCommand { get; set; }
 
         private int _currentDisplayIndex;
         private int _currentCornerIndex;
@@ -37,6 +39,22 @@ namespace Ollama_assistance.ViewModel
             }
         }
 
+        public void SendMessage(string message)
+        {
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                ChatMessages.Add(message);
+                ChatHistoryService.SaveMessageToHistory(message);
+                message = string.Empty;
+            }
+        }
+
+        private bool CanSendMessage()
+        {
+            return !string.IsNullOrWhiteSpace(NewMessage);
+        }
+
+        //corner to render application shinanigans
         public int CurrentCornerIndex
         {
             get => _currentCornerIndex;
@@ -51,6 +69,19 @@ namespace Ollama_assistance.ViewModel
             }
         }
 
+        public ObservableCollection<string> ChatMessages { get; set; }
+
+        private string _newMessage;
+        public string NewMessage
+        {
+            get => _newMessage;
+            set
+            {
+                _newMessage = value;
+                OnPropertyChanged(nameof(NewMessage));
+            }
+        }
+
         public MainViewModel()
         {
             Displays = new ObservableCollection<DisplayOption>();
@@ -58,11 +89,18 @@ namespace Ollama_assistance.ViewModel
             SelectDisplayCommand = new RelayCommand(SelectDisplay);
             SelectCornerCommand = new RelayCommand(SelectCorner);
 
+            ChatMessages = new ObservableCollection<string>(ChatHistoryService.LoadChatHistory());
+            SendMessageCommand = new RelayCommand(
+                parameter => SendMessage(NewMessage),
+                parameter => !string.IsNullOrWhiteSpace(NewMessage)
+            );
+
             PopulateDisplays();
             PopulateCornerPositions();
 
             CurrentDisplayIndex = 0;
             CurrentCornerIndex = 3; // 0 top left | 1 top right | 2 bottom left | 3 bottom right
+
         }
 
         private void PopulateCornerPositions()
