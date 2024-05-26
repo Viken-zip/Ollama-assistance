@@ -9,4 +9,14 @@
 	<UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="ollama assistance icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ollama assistance icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

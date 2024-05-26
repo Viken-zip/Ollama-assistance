@@ -57,6 +57,45 @@ namespace Ollama_assistance
             //MessageBox.Show($"{this.Width}x{this.Height}");
         }
 
+        private void messageInputBox_keyDown (object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                SendMessage();
+            }
+        }
+
+        private void sendMessage_click(object sender, RoutedEventArgs e)
+        {
+            SendMessage();
+        }
+
+        private void SendMessage()
+        {
+            string message = messageInputBox.Text;
+            if (!string.IsNullOrEmpty(message) )
+            {
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = message,
+                    Background = new SolidColorBrush(Colors.White)
+                };
+
+                Border border = new Border
+                {
+                    CornerRadius = new CornerRadius(8),
+                    BorderThickness = new Thickness(3),
+                    BorderBrush = new SolidColorBrush(Colors.White),
+                    Margin = new Thickness(200,5,5,5),
+                    Child = textBlock
+                };
+
+                chatContainer.Children.Add(border);
+                messageInputBox.Clear();
+                chatScrollViewer.ScrollToBottom();
+            }
+        }
+
         private void MinimizeButtonClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;

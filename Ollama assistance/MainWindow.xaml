@@ -9,6 +9,7 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
+        Icon="ollama assistance icon.ico"
         Title="Ollama assistance" Height="696" Width="512">
     <Border BorderBrush="#343536" BorderThickness="2" CornerRadius="4">
         <Grid Background="#030303" >
@@ -104,29 +105,49 @@
                 </Menu>
             </Border>
 
-            <ScrollViewer Grid.Row="2" Background="#030303" >
-                <StackPanel>
-                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="white" Margin="200,5,5,5">
+            <ScrollViewer Grid.Row="2" Background="#030303" Name="chatScrollViewer" >
+                <StackPanel Name="chatContainer" >
+                    <Border CornerRadius="8" BorderThickness="3" BorderBrush="white" Margin="200,5,5,5">
                         <TextBlock Text="hi!" Background="white"  ></TextBlock>
                     </Border>
-                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="LightBlue" Margin="5,5,200,5">
+                    <Border CornerRadius="8" BorderThickness="3" BorderBrush="LightBlue" Margin="5,5,200,5">
                         <TextBlock Text="hello, how can i help you today?" Background="LightBlue" ></TextBlock>
                     </Border>
-                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="white" Margin="200,5,5,5">
+                    <Border CornerRadius="8" BorderThickness="3" BorderBrush="white" Margin="200,5,5,5">
                         <TextBlock Text="tell me 3 thasty things." Background="white" ></TextBlock>
                     </Border>
-                    <Border CornerRadius="8" BorderThickness="2" BorderBrush="LightBlue" Margin="5,5,200,5">
+                    <Border CornerRadius="8" BorderThickness="3" BorderBrush="LightBlue" Margin="5,5,200,5">
                         <TextBlock Text="okay, there is cookies, cakes and candy." Background="LightBlue" ></TextBlock>
                     </Border>
                 </StackPanel>
             </ScrollViewer>
 
-            <Border BorderBrush="#343536" BorderThickness="1" CornerRadius="2" Grid.Row="3" Margin="2,0" VerticalAlignment="Center" >
+            <Grid Grid.Row="3" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="75" />
+                </Grid.ColumnDefinitions>
+
                 <TextBox
+                    Name="messageInputBox"
+                    Margin="5,10"
+                    Grid.Column="0"
                     Background="#1A1A1B"
                     Foreground="#818384"
+                    VerticalAlignment="Center"
+                    TextWrapping="Wrap"
+                    KeyDown="messageInputBox_keyDown"
                     />
-            </Border>
+
+                <Button 
+                    Background="#1A1A1B" 
+                    Foreground="#818384" 
+                    Content="Send" 
+                    Margin="5, 10" 
+                    Grid.Column="1" 
+                    Click="sendMessage_click"
+                    />
+            </Grid>
         </Grid>
     </Border>
 </Window>
