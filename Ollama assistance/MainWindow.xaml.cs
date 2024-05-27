@@ -52,7 +52,7 @@ namespace Ollama_assistance
 
         private string clearSenderOfMessage(string message)
         {
-            //this isn't necessary but just in case
+            //this isn't necessary but just in case.
             if (message.Contains(": ")) {
                 return message.Substring(message.IndexOf(": ") + 2);
             } else { 
