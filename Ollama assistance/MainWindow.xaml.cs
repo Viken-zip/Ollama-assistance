@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Drawing;
 using WinForms = System.Windows.Forms;
 using Ollama_assistance.ViewModel;
+using System.Collections.ObjectModel;
+using Ollama_assistance.Services;
 
 namespace Ollama_assistance
 {
@@ -24,17 +26,38 @@ namespace Ollama_assistance
     public partial class MainWindow : Window
     {
         private MainViewModel _viewModel;
+        public ObservableCollection<string> ChatMessages { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
+            ChatMessages = new ObservableCollection<string>(ChatHistoryService.LoadChatHistory());
             this.Loaded += MainWindow_Loaded;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+
+            for (int i = 0; i < ChatMessages.Count; i++)
+            {
+                string message = clearSenderOfMessage(ChatMessages[i]);
+                RenderMessage(
+                    message, 
+                    ChatMessages[i].Contains("User:") ? "User" : "AI" 
+                    );
+            }
             //SetWindowPosition(0);
+        }
+
+        private string clearSenderOfMessage(string message)
+        {
+            //this isn't necessary but just in case
+            if (message.Contains(": ")) {
+                return message.Substring(message.IndexOf(": ") + 2);
+            } else { 
+                return message; 
+            }
         }
 
         private void SetWindowPosition(int screenIndex)
@@ -77,26 +100,35 @@ namespace Ollama_assistance
             string message = messageInputBox.Text;
             if (!string.IsNullOrEmpty(message) )
             {
+                RenderMessage(message, "User");
+
+                messageInputBox.Clear();
+                chatScrollViewer.ScrollToBottom();
+
+                _viewModel.SendMessage("User: " + message);
+            }
+        }
+
+        private void RenderMessage(string message, string sender) // i love ternary to much...
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
                 TextBlock textBlock = new TextBlock
                 {
                     Text = message,
-                    Background = new SolidColorBrush(Colors.White)
+                    Background = new SolidColorBrush( (sender == "User") ? Colors.White : Colors.LightBlue)
                 };
 
                 Border border = new Border
                 {
                     CornerRadius = new CornerRadius(8),
                     BorderThickness = new Thickness(3),
-                    BorderBrush = new SolidColorBrush(Colors.White),
-                    Margin = new Thickness(200,5,5,5),
+                    BorderBrush = new SolidColorBrush( (sender == "User") ? Colors.White : Colors.LightBlue ),
+                    Margin = ( (sender == "User") ? new Thickness(200, 5, 5, 5) : new Thickness(5, 5, 200, 5) ),
                     Child = textBlock
                 };
 
                 chatContainer.Children.Add(border);
-                messageInputBox.Clear();
-                chatScrollViewer.ScrollToBottom();
-
-                _viewModel.SendMessage(message);
             }
         }
 
