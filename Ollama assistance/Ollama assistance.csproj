@@ -11,10 +11,14 @@
 
   <ItemGroup>
     <None Remove="ollama assistance icon.ico" />
+    <None Remove="Ollama.py" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="ollama assistance icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ollama.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -95,7 +95,7 @@ namespace Ollama_assistance
             SendMessage();
         }
 
-        private void SendMessage()
+        private async void SendMessage()
         {
             string message = messageInputBox.Text;
             if (!string.IsNullOrEmpty(message) )
@@ -106,6 +106,17 @@ namespace Ollama_assistance
                 chatScrollViewer.ScrollToBottom();
 
                 _viewModel.SendMessage("User: " + message);
+                try
+                {
+                    string AIAnswer = await OllamaIntegration.AskOllama(message);
+                    RenderMessage(AIAnswer, "AI");
+
+                    _viewModel.SendMessage("AI: " + AIAnswer);
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}");
+                }
             }
         }
 
@@ -116,7 +127,8 @@ namespace Ollama_assistance
                 TextBlock textBlock = new TextBlock
                 {
                     Text = message,
-                    Background = new SolidColorBrush( (sender == "User") ? Colors.White : Colors.LightBlue)
+                    Background = new SolidColorBrush( (sender == "User") ? Colors.White : Colors.LightBlue),
+                    TextWrapping = TextWrapping.Wrap
                 };
 
                 Border border = new Border
