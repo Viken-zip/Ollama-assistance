@@ -160,8 +160,14 @@ namespace Ollama_assistance.ViewModel
                     break;
             }
 
-            window.Width = workingArea.Width / 5;
-            window.Height = workingArea.Height / 2;
+            newLeft = Math.Max(workingArea.Left, Math.Min(newLeft, workingArea.Right - window.Width));
+            newTop = Math.Max(workingArea.Top, Math.Min(newTop, workingArea.Bottom - window.Height));
+
+            window.Width = Math.Min(window.Width, workingArea.Width);
+            window.Height = Math.Min(window.Height, workingArea.Height);
+
+            //window.Width = workingArea.Width / 5;
+            //window.Height = workingArea.Height / 2;
             window.Left = newLeft;
             window.Top = newTop;
 
