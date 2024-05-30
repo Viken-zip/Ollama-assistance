@@ -29,12 +29,59 @@ namespace Ollama_assistance.Services
         public static List<string> LoadChatHistory()
         {
             string filePath = GetChatHistoryFilePath();
+            if (!File.Exists(filePath))
+            {
+                return new List<string>();
+            }
+
+            var lines = File.ReadAllLines(filePath);
+            var messages = new List<string>();
+            var currentMessage = new StringBuilder();
+            string currentSender = null;
+
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("User: ") || line.StartsWith("AI: "))
+                {
+                    if (currentMessage.Length > 0)
+                    {
+                        messages.Add(currentMessage.ToString()); // do not Trim
+                        currentMessage.Clear();
+                    }
+
+                    currentSender = line.StartsWith("User: ") ? "User: " : "AI: ";
+                    currentMessage.Append(line);
+                }                
+                else if (currentSender != null)
+                {
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        currentMessage.AppendLine();
+                    }
+                    else
+                    {
+                        currentMessage.AppendLine(line);
+                    }
+                    
+                }
+            }
+
+            if(currentMessage.Length > 0)
+            {
+                messages.Add(currentMessage.ToString()); // do not Trim
+            }
+
+            return messages;
+        }
+        /*public static List<string> LoadChatHistory()
+        {
+            string filePath = GetChatHistoryFilePath();
             if (File.Exists(filePath))
             {
                 return new List<string>(File.ReadAllLines(filePath));
             }
             return new List<string>();
-        }
+        }*/
 
         public static void SaveMessageToHistory(string message)
         {

@@ -47,6 +47,7 @@ namespace Ollama_assistance
                     ChatMessages[i].Contains("User:") ? "User" : "AI" 
                     );
             }
+            chatScrollViewer.ScrollToBottom();
             //SetWindowPosition(0);
         }
 
