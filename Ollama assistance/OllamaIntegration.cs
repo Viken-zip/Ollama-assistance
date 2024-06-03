@@ -5,15 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Ollama_assistance.Services;
 using Python.Runtime;
 
 namespace Ollama_assistance
 {
     class OllamaIntegration
     {
+        
+
         // will make it easier to add path and save path in a config file soon
-        private static string PythonDLLPath = @""; // add DLL path to python installation here
-        private static string PythonDLLsPath = @""; // add path to DLLs folder in python installation here
+        private static ConfigService configService;
+        private static string PythonDLLPath;
+        private static string PythonDLLsPath;
+
+        static OllamaIntegration()
+        {
+            configService = new ConfigService();
+            Config config = configService.getPythonDLLPaths();
+
+            PythonDLLPath = config.PyDLLPath;
+            PythonDLLsPath = config.PyDLLsPath;
+        }
 
         private static string OllamaScriptName = "Ollama";
         private static string PathToOllamaScript = Path.Combine(Directory.GetCurrentDirectory(), $"{OllamaScriptName}.py"); // to be added python script for using Ollama

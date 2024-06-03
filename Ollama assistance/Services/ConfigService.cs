@@ -18,7 +18,7 @@ namespace Ollama_assistance.Services
         public string PyDLLsPath { get; set;}
     }
 
-    internal class ConfigService
+    public class ConfigService
     {
         private static string GetAppDataDirectory()
         {
@@ -68,6 +68,12 @@ namespace Ollama_assistance.Services
             string jsonString = JsonSerializer.Serialize(newConfig, new JsonSerializerOptions { WriteIndented = true });
             string filePath = GetConfigFilePath();
             File.WriteAllText(filePath, jsonString);
+        }
+
+        public Config getPythonDLLPaths()
+        {
+            Config activeConfig = LoadJson();
+            return activeConfig;
         }
     }
 }

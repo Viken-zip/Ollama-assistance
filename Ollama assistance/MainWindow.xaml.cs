@@ -26,6 +26,7 @@ namespace Ollama_assistance
     public partial class MainWindow : Window
     {
         private MainViewModel _viewModel;
+
         public ObservableCollection<string> ChatMessages { get; set; }
         public MainWindow()
         {
@@ -48,6 +49,7 @@ namespace Ollama_assistance
                     );
             }
             chatScrollViewer.ScrollToBottom();
+
             //SetWindowPosition(0);
         }
 
