@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
 
             <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLL file Path" Foreground="white" ></Label>
-            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLPath" ></TextBox>
+            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLPath" TextChanged="removeUnwantedSymbols" ></TextBox>
         </Grid>
 
         <Grid Grid.Row="2" >
@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
             
             <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLLs folder Path" Foreground="white" ></Label>
-            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLsPath" ></TextBox>
+            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLsPath" TextChanged="removeUnwantedSymbols" ></TextBox>
         </Grid>
         
         

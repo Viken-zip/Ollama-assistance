@@ -38,7 +38,7 @@ namespace Ollama_assistance.Views
 
         private void saveBtnClick(object sender, RoutedEventArgs e) 
         { 
-            config.PyDLLPath = PythonDLLPath.Text;
+            config.PyDLLPath = PythonDLLPath.Text.Replace("\"", ""); // ill just keep the replace there just in case, might remove soon
             config.PyDLLsPath = PythonDLLsPath.Text;
             configService.UpdateConfig(config);
         }
@@ -46,6 +46,21 @@ namespace Ollama_assistance.Views
         private void cancelBtnClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void removeUnwantedSymbols(object sender, RoutedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string Text = textBox.Text;
+                string newText = Text.Replace("\"", "");
+
+                if (Text != newText)
+                {
+                    textBox.Text = newText;
+                }
+            }
         }
     }
 }
