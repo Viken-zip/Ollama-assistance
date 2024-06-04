@@ -17,6 +17,7 @@ using WinForms = System.Windows.Forms;
 using Ollama_assistance.ViewModel;
 using System.Collections.ObjectModel;
 using Ollama_assistance.Services;
+using Ollama_assistance.Views;
 
 namespace Ollama_assistance
 {
@@ -145,6 +146,12 @@ namespace Ollama_assistance
 
                 chatContainer.Children.Add(border);
             }
+        }
+
+        private void configBtnClick(object sender, RoutedEventArgs e)
+        {
+            ConfigWindow configWindow = new ConfigWindow();
+            configWindow.Show();
         }
 
         private void MinimizeButtonClick(object sender, RoutedEventArgs e)

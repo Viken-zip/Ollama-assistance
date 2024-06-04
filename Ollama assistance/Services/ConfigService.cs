@@ -41,8 +41,8 @@ namespace Ollama_assistance.Services
         {
             Config newConfig = new Config
             {
-                PyDLLPath = "bla",
-                PyDLLsPath = "bla"
+                PyDLLPath = "",
+                PyDLLsPath = ""
             };
             string jsonString = JsonSerializer.Serialize(newConfig, new JsonSerializerOptions { WriteIndented = true });
             string filePath = GetConfigFilePath();
@@ -70,7 +70,12 @@ namespace Ollama_assistance.Services
             File.WriteAllText(filePath, jsonString);
         }
 
-        public Config getPythonDLLPaths()
+        public void UpdateConfig(Config newConfig)
+        {
+            SaveJson(newConfig); //dose this work?
+        }
+
+        public Config getConfig()
         {
             Config activeConfig = LoadJson();
             return activeConfig;

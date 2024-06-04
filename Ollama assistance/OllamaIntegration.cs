@@ -22,7 +22,7 @@ namespace Ollama_assistance
         static OllamaIntegration()
         {
             configService = new ConfigService();
-            Config config = configService.getPythonDLLPaths();
+            Config config = configService.getConfig();
 
             PythonDLLPath = config.PyDLLPath;
             PythonDLLsPath = config.PyDLLsPath;

@@ -101,9 +101,7 @@
                         <MenuItem Header="Color" Foreground="Black" >
 
                         </MenuItem>
-                        <MenuItem Header="config" >
-
-                        </MenuItem>
+                        <MenuItem Header="config" Click="configBtnClick" Foreground="Black" />
                     </MenuItem>
                 </Menu>
             </Border>
