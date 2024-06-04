@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
-        Icon="ollama assistance icon.ico"
+        Icon="/ollama assistance icon.ico"
         Title="Ollama assistance" Height="696" Width="512">
     <Border BorderBrush="#343536" BorderThickness="2" CornerRadius="4">
         <Grid Background="#030303" >
@@ -99,6 +99,9 @@
                             </MenuItem.ItemTemplate>
                         </MenuItem>
                         <MenuItem Header="Color" Foreground="Black" >
+
+                        </MenuItem>
+                        <MenuItem Header="config" >
 
                         </MenuItem>
                     </MenuItem>
