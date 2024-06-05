@@ -14,6 +14,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.Row="0" Text="Config Window" Foreground="White" ></TextBlock>
 
@@ -24,8 +25,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLL file Path" Foreground="white" ></Label>
-            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLPath" TextChanged="removeUnwantedSymbols" ></TextBox>
+            <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLL file Path" Foreground="white" />
+            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLPath" TextChanged="removeUnwantedSymbols" />
         </Grid>
 
         <Grid Grid.Row="2" >
@@ -34,9 +35,9 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLLs folder Path" Foreground="white" ></Label>
-            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLsPath" TextChanged="removeUnwantedSymbols" ></TextBox>
+
+            <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLLs folder Path" Foreground="white" />
+            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLsPath" TextChanged="removeUnwantedSymbols" />
         </Grid>
         
         
@@ -50,6 +51,15 @@
             
             <Button Grid.Column="0" Width="50" Height="25" Content="save" Click="saveBtnClick" />
             <Button Grid.Column="1" Width="50" Height="25" Content="cancel" Click="cancelBtnClick" ></Button>
+        </Grid>
+
+        <Grid Grid.Row="4" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="This is a experminelt python pipe server" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Grid.Column="1" Content="Run/Stop python pipe server" Click="pythonServerBtnClick" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
     </Grid>
 </Window>
