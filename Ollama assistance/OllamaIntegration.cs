@@ -22,7 +22,7 @@ namespace Ollama_assistance
         static OllamaIntegration()
         {
             configService = new ConfigService();
-            Config config = configService.getConfig();
+            Config config = configService.getConfig(); //doesn't take updated info from config, needs fixing soon.
 
             PythonDLLPath = config.PyDLLPath;
             PythonDLLsPath = config.PyDLLsPath;
@@ -46,13 +46,13 @@ namespace Ollama_assistance
 
                         using (var scope = Py.CreateScope())
                         {
-                            var scriptFile = "Ollama.py"; // script doesn't exist as of now
+                            var scriptFile = "Ollama.py";
                             var scriptContents = File.ReadAllText(scriptFile);
 
                             var compiledCode = PythonEngine.Compile(scriptContents, scriptFile);
                             scope.Execute(compiledCode);
 
-                            dynamic? AskOllamaFunction = scope.Get("AskOllama"); // function obv dosent exist yet...
+                            dynamic? AskOllamaFunction = scope.Get("AskOllama");
                             result = AskOllamaFunction(question);
 
                         }
