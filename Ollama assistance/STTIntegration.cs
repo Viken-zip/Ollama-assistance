@@ -29,7 +29,7 @@ namespace Ollama_assistance
             PythonDLLsPath = config.PyDLLsPath;
         }
 
-        private static string STTScriptName = "STTPipeServer";
+        private static string STTScriptName = "STTScript"; //STTPipeServer
         private static string PathToSTTScript = Path.Combine(Directory.GetCurrentDirectory(), $"{STTScriptName}.py");
 
         
@@ -52,7 +52,7 @@ namespace Ollama_assistance
                     PythonEngine.Exec($"import sys\nsys.path.append(r'{PythonDLLsPath}')");
                     using (var scope = Py.CreateScope())
                     {
-                        var scriptFile = "STTPipeServer.py";
+                        var scriptFile = $"{STTScriptName}.py";
                         var scriptContents = File.ReadAllText(scriptFile);
 
                         var compiledCode = PythonEngine.Compile(scriptContents);

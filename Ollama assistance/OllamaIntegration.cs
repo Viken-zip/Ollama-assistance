@@ -12,12 +12,16 @@ namespace Ollama_assistance
 {
     class OllamaIntegration
     {
-        
+
 
         // will make it easier to add path and save path in a config file soon
-        private static ConfigService configService;
-        private static string PythonDLLPath;
-        private static string PythonDLLsPath;
+        private static ConfigService configService;// = new ConfigService();
+        //private static Config config = configService.getConfig();
+        private static string PythonDLLPath; // = config.PyDLLPath;
+        private static string PythonDLLsPath; // = config.PyDLLsPath;
+
+        
+        
 
         static OllamaIntegration()
         {
