@@ -116,6 +116,7 @@ namespace Ollama_assistance
                     RenderMessage(AIAnswer, "AI");
 
                     _viewModel.SendMessage("AI: " + AIAnswer);
+                    
                 }
                 catch (Exception ex) 
                 {

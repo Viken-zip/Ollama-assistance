@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -50,7 +52,7 @@ namespace Ollama_assistance.Views
 
         private void removeUnwantedSymbols(object sender, RoutedEventArgs e)
         {
-            var textBox = sender as TextBox;
+            var textBox = sender as System.Windows.Forms.TextBox;
             if (textBox != null)
             {
                 string Text = textBox.Text;
@@ -69,11 +71,17 @@ namespace Ollama_assistance.Views
         {
             if (serverOn)
             {
-                STTIntegration.StopSTTPythonServer();
+                //STTIntegration.StopSTTPythonServer();
+                PythonIntegration.StopServer();
             }
             else 
             { 
-                STTIntegration.StartSTTPythonServer();
+                //STTIntegration.StartSTTPythonServer();
+                PythonIntegration.StartServer();
+                Thread.Sleep(20000);
+                System.Windows.Forms.MessageBox.Show("send message");
+
+                PythonIntegration.AskAI("hi, who are you?");
             }
             serverOn = !serverOn;
         }
