@@ -9,6 +9,7 @@ using Python.Runtime;
 using System.Windows;
 using System.Threading;
 using System.IO.Pipes;
+using Ollama_assistance.Views;
 
 namespace Ollama_assistance
 {
@@ -176,7 +177,21 @@ namespace Ollama_assistance
 
         static void HandleAIAnswer(string result)
         {
-            MessageBox.Show(result);
+            //MessageBox.Show(result);
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+                if(mainWindow != null)
+                {
+                    mainWindow.RenderMessage(result, "AI");
+                    
+                }
+                else
+                {
+                    MessageBox.Show("MainWindow is not available");
+                }
+            });
         }
     }
 }

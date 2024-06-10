@@ -16,7 +16,7 @@ stt_on_pipe_name = r'\\.\pipe\STTOn_pipe'
 
 shutdown_flag = 'shutdown.flag'
 
-def pipe(message, pipe_name):
+def createPipe(message, pipe_name):
     pipe = win32pipe.CreateNamedPipe(
             pipe_name,
             win32pipe.PIPE_ACCESS_OUTBOUND,
@@ -56,7 +56,7 @@ def check_pipes():
             )
             question = win32file.ReadFile(pipe, 64 * 1024)[1].decode()
             answer = AskOllama(question)
-            pipe(answer, ai_answer_name)
+            createPipe(answer, ai_answer_name)
 
             win32file.CloseHandle(pipe)
         except Exception as e:

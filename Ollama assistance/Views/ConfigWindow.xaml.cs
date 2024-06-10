@@ -66,10 +66,10 @@ namespace Ollama_assistance.Views
         }
 
         //this is for the python pipe server test
-        private bool serverOn = false;
+        //private bool serverOn = false;
         private void pythonServerBtnClick(object sender, RoutedEventArgs e)
         {
-            if (serverOn)
+            /*if (serverOn)
             {
                 //STTIntegration.StopSTTPythonServer();
                 PythonIntegration.StopServer();
@@ -83,7 +83,8 @@ namespace Ollama_assistance.Views
 
                 PythonIntegration.AskAI("hi, who are you?");
             }
-            serverOn = !serverOn;
+            serverOn = !serverOn;*/
+            PythonIntegration.StopServer();
         }
     }
 }

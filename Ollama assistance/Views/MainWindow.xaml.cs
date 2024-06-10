@@ -50,7 +50,7 @@ namespace Ollama_assistance
                     );
             }
             chatScrollViewer.ScrollToBottom();
-
+            PythonIntegration.StartServer();
             //SetWindowPosition(0);
         }
 
@@ -110,7 +110,10 @@ namespace Ollama_assistance
                 chatScrollViewer.ScrollToBottom();
 
                 _viewModel.SendMessage("User: " + message);
-                try
+
+
+                PythonIntegration.AskAI(message);
+                /*try
                 {
                     string AIAnswer = await OllamaIntegration.AskOllama(message);
                     RenderMessage(AIAnswer, "AI");
@@ -121,11 +124,11 @@ namespace Ollama_assistance
                 catch (Exception ex) 
                 {
                     MessageBox.Show($"An error occurred: {ex.Message}");
-                }
+                }*/
             }
         }
 
-        private void RenderMessage(string message, string sender) // i love ternary to much...
+        public void RenderMessage(string message, string sender) // i love ternary to much...
         {
             if (!string.IsNullOrEmpty(message))
             {
