@@ -20,6 +20,7 @@ using System.Collections.ObjectModel;
 using Ollama_assistance.Services;
 using Ollama_assistance.Views;
 using System.Threading;
+using Microsoft.VisualBasic.Devices;
 
 namespace Ollama_assistance
 {
@@ -187,18 +188,20 @@ namespace Ollama_assistance
             PerformanceCounter cpuCounter;
             PerformanceCounter ramCounter;
 
-            cpuCounter = new PerformanceCounter("processor", "% Processor Time", "_Total");
+            cpuCounter = new PerformanceCounter("processor Information", "% Processor Utility", "_Total");
             ramCounter = new PerformanceCounter("Memory", "Available MBytes");
-
+            float totalRamAmount = new ComputerInfo().TotalPhysicalMemory;
+            
+            
             while (true)
             {
-
-                //string RamUsage = ramCounter.NextValue();
+                float cpuUsage = cpuCounter.NextValue();
+                float ramUsage = Math.Abs((ramCounter.NextValue() / 1024) - (totalRamAmount / 1024 / 1024 / 1024));
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    CpuUsage.Text = $"CPU: {cpuCounter.NextValue()}%";
-                    RamUsage.Text = $"RAM: {ramCounter.NextValue() / 1024}GB";
+                    CpuUsage.Text = $"CPU: {cpuUsage.ToString("0.0")}%";
+                    RamUsage.Text = $"RAM: {ramUsage.ToString("0.0")}GB";
                 });
                 Thread.Sleep(1000);
             }
