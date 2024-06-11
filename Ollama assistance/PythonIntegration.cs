@@ -185,7 +185,7 @@ namespace Ollama_assistance
                 if(mainWindow != null)
                 {
                     mainWindow.RenderMessage(result, "AI");
-                    
+                    mainWindow.AddMessageToHistory(result, "AI");
                 }
                 else
                 {

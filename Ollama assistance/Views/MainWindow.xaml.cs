@@ -13,11 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using System.Diagnostics;
 using WinForms = System.Windows.Forms;
 using Ollama_assistance.ViewModel;
 using System.Collections.ObjectModel;
 using Ollama_assistance.Services;
 using Ollama_assistance.Views;
+using System.Threading;
 
 namespace Ollama_assistance
 {
@@ -36,6 +38,10 @@ namespace Ollama_assistance
             DataContext = _viewModel;
             ChatMessages = new ObservableCollection<string>(ChatHistoryService.LoadChatHistory());
             this.Loaded += MainWindow_Loaded;
+
+            Thread PCUsageThread = new Thread(PCUsage);
+            PCUsageThread.IsBackground = true;
+            PCUsageThread.Start();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -51,6 +57,9 @@ namespace Ollama_assistance
             }
             chatScrollViewer.ScrollToBottom();
             PythonIntegration.StartServer();
+
+            //Thread PCUsageThread = new Thread(PCUsage);
+            //PCUsageThread.Start();
             //SetWindowPosition(0);
         }
 
@@ -99,6 +108,11 @@ namespace Ollama_assistance
             SendMessage();
         }
 
+        public void AddMessageToHistory(string message, string sender)
+        {
+            _viewModel.SendMessage($"{sender}: " + message);
+        }
+
         private async void SendMessage()
         {
             string message = messageInputBox.Text;
@@ -128,7 +142,7 @@ namespace Ollama_assistance
             }
         }
 
-        public void RenderMessage(string message, string sender) // i love ternary to much...
+        public void RenderMessage(string message, string sender)
         {
             if (!string.IsNullOrEmpty(message))
             {
@@ -166,6 +180,28 @@ namespace Ollama_assistance
         private void CloseButtonClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void PCUsage()
+        {
+            PerformanceCounter cpuCounter;
+            PerformanceCounter ramCounter;
+
+            cpuCounter = new PerformanceCounter("processor", "% Processor Time", "_Total");
+            ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+
+            while (true)
+            {
+
+                //string RamUsage = ramCounter.NextValue();
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    CpuUsage.Text = $"CPU: {cpuCounter.NextValue()}%";
+                    RamUsage.Text = $"RAM: {ramCounter.NextValue() / 1024}GB";
+                });
+                Thread.Sleep(1000);
+            }
         }
     }
 }
