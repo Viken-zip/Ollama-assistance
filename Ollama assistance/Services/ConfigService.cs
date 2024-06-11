@@ -16,6 +16,9 @@ namespace Ollama_assistance.Services
 
         [JsonPropertyName("PyDLLsPath")]
         public string PyDLLsPath { get; set;}
+        
+        [JsonPropertyName("ShowSystemUsage")]
+        public bool ShowSystemUsage { get; set; }
     }
 
     public class ConfigService
@@ -42,7 +45,8 @@ namespace Ollama_assistance.Services
             Config newConfig = new Config
             {
                 PyDLLPath = "",
-                PyDLLsPath = ""
+                PyDLLsPath = "",
+                ShowSystemUsage = false
             };
             string jsonString = JsonSerializer.Serialize(newConfig, new JsonSerializerOptions { WriteIndented = true });
             string filePath = GetConfigFilePath();

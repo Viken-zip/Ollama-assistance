@@ -30,6 +30,9 @@ namespace Ollama_assistance
     public partial class MainWindow : Window
     {
         private MainViewModel _viewModel;
+        
+        private static ConfigService ConfigService;
+        private Config config;
 
         public ObservableCollection<string> ChatMessages { get; set; }
         public MainWindow()
@@ -38,11 +41,20 @@ namespace Ollama_assistance
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
             ChatMessages = new ObservableCollection<string>(ChatHistoryService.LoadChatHistory());
+            ConfigService = new ConfigService();
+            config = ConfigService.getConfig();
             this.Loaded += MainWindow_Loaded;
 
-            Thread PCUsageThread = new Thread(PCUsage);
-            PCUsageThread.IsBackground = true;
-            PCUsageThread.Start();
+            if (config.ShowSystemUsage) //this needs a remake
+            {
+                Thread SystemUsageThread = new Thread(SystemUsage);
+                SystemUsageThread.IsBackground = true;
+                SystemUsageThread.Start();
+            }
+            else
+            {
+                SystemUsagePanel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -183,21 +195,21 @@ namespace Ollama_assistance
             Close();
         }
 
-        private void PCUsage()
+        private void SystemUsage()
         {
             PerformanceCounter cpuCounter;
             PerformanceCounter ramCounter;
 
             cpuCounter = new PerformanceCounter("processor Information", "% Processor Utility", "_Total");
             ramCounter = new PerformanceCounter("Memory", "Available MBytes");
-            float totalRamAmount = new ComputerInfo().TotalPhysicalMemory;
             
+            float totalRamAmount = new ComputerInfo().TotalPhysicalMemory;
             
             while (true)
             {
                 float cpuUsage = cpuCounter.NextValue();
                 float ramUsage = Math.Abs((ramCounter.NextValue() / 1024) - (totalRamAmount / 1024 / 1024 / 1024));
-
+                
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     CpuUsage.Text = $"CPU: {cpuUsage.ToString("0.0")}%";

@@ -8,8 +8,29 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Title="Ollama assistance config" Height="696" Width="512">
+    <Window.Resources>
+        <ControlTemplate x:Key="CustomToggleButtonTemplate" TargetType="ToggleButton" >
+            <Grid>
+                <Border x:Name="Border" Background="white" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" >
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <Path x:Name="CheckMark" Data="M 0 0 L 1 1 M 1 0 L 0 1" Stroke="White" StrokeThickness="2" Stretch="Uniform" Visibility="Collapsed" Width="10" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True" >
+                    <Setter TargetName="Border" Property="Background" Value="DarkBlue"/>
+                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False" >
+                    <Setter TargetName="Border" Property="Background" Value="White" />
+                    <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid Background="#030303" >
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
@@ -40,9 +61,17 @@
             <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLsPath" TextChanged="removeUnwantedSymbols" />
         </Grid>
         
-        
-
         <Grid Grid.Row="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0" Text="Show system CPU and RAM usage" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <ToggleButton Grid.Column="1" Name="ShowSystemUsageToggle" Template="{StaticResource CustomToggleButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" />
+        </Grid>
+
+        <Grid Grid.Row="4" >
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -53,12 +82,12 @@
             <Button Grid.Column="1" Width="50" Height="25" Content="cancel" Click="cancelBtnClick" ></Button>
         </Grid>
 
-        <Grid Grid.Row="4" >
+        <Grid Grid.Row="5" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="This is a experminelt python pipe server" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Text="This is a experimental python pipe server" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button Grid.Column="1" Content="Run/Stop python pipe server" Click="pythonServerBtnClick" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
     </Grid>

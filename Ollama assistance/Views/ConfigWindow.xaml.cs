@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Ollama_assistance.Views
 {
@@ -36,13 +37,21 @@ namespace Ollama_assistance.Views
         {
             PythonDLLPath.Text = config.PyDLLPath;
             PythonDLLsPath.Text = config.PyDLLsPath;
+            ShowSystemUsageToggle.IsChecked = config.ShowSystemUsage;
         }
 
         private void saveBtnClick(object sender, RoutedEventArgs e) 
         { 
             config.PyDLLPath = PythonDLLPath.Text.Replace("\"", ""); // ill just keep the replace there just in case, might remove soon
-            config.PyDLLsPath = PythonDLLsPath.Text;
+            config.PyDLLsPath = PythonDLLsPath.Text.Replace("\"", "");
+
+            //MessageBox.Show( (ShowSystemUsageToggle.IsChecked == true ? true : false).ToString() );
+            config.ShowSystemUsage = (ShowSystemUsageToggle.IsChecked == true ? true : false);
+            
+
+            
             configService.UpdateConfig(config);
+            this.Close();
         }
 
         private void cancelBtnClick(object sender, RoutedEventArgs e)

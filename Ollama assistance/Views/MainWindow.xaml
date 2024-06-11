@@ -30,22 +30,17 @@
 
 
 
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" >
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Name="SystemUsagePanel" >
                     <TextBlock
                         Name="CpuUsage"
                         Foreground="LightGreen"
-                        Text="CPU %"
+                        Text="CPU 0%"
                         />
                     <TextBlock
                         Name="RamUsage"
                         Foreground="LightBlue"
-                        Text="RAM %"
+                        Text="RAM 0GB"
                         Margin="10 0"
-                        />
-                    <TextBlock
-                        Name="GpuUsage"
-                        Foreground="LightSalmon"
-                        Text="GPU %"
                         />
                 </StackPanel>
 
