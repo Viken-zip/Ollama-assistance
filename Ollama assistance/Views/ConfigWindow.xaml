@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Ollama_assistance.Views"
+        xmlns:local="clr-namespace:Ollama_assistance.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
         Title="Ollama assistance config" Height="696" Width="512">
     <Window.Resources>
+        
         <ControlTemplate x:Key="CustomToggleButtonTemplate" TargetType="ToggleButton" >
             <Grid>
                 <Border x:Name="Border" Background="white" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" >
@@ -47,7 +48,7 @@
             </Grid.RowDefinitions>
 
             <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLL file Path" Foreground="white" />
-            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLPath" TextChanged="removeUnwantedSymbols" />
+            <TextBox Grid.Row="1" Text="{Binding PythonDLLPath.Path, Mode=TwoWay}" Width="300" Height="20" Name="PythonDLLPath" TextChanged="removeUnwantedSymbols" />
         </Grid>
 
         <Grid Grid.Row="2" >
@@ -58,7 +59,7 @@
             </Grid.RowDefinitions>
 
             <Label HorizontalAlignment="Center" Grid.Row="0" Content="Python DLLs folder Path" Foreground="white" />
-            <TextBox Grid.Row="1" Width="300" Height="20" Name="PythonDLLsPath" TextChanged="removeUnwantedSymbols" />
+            <TextBox Grid.Row="1" Text="{Binding PythonDLLPath.Path, Mode=TwoWay}" Width="300" Height="20" Name="PythonDLLsPath" TextChanged="removeUnwantedSymbols"  />
         </Grid>
         
         <Grid Grid.Row="3" >
@@ -68,7 +69,7 @@
             </Grid.ColumnDefinitions>
             
             <TextBlock Grid.Column="0" Text="Show system CPU and RAM usage" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="1" Name="ShowSystemUsageToggle" Template="{StaticResource CustomToggleButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" />
+            <ToggleButton Grid.Column="1" IsChecked="{Binding ShowSystemUsage.Show, Mode=TwoWay}" Name="ShowSystemUsageToggle" Template="{StaticResource CustomToggleButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" />
         </Grid>
 
         <Grid Grid.Row="4" >
@@ -78,7 +79,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
-            <Button Grid.Column="0" Width="50" Height="25" Content="save" Click="saveBtnClick" />
+            <Button Grid.Column="0" Width="50" Height="25" Content="save" Command="{Binding SaveCommand}" />
             <Button Grid.Column="1" Width="50" Height="25" Content="cancel" Click="cancelBtnClick" ></Button>
         </Grid>
 

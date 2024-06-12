@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Ollama_assistance.ViewModel;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Ollama_assistance.Views
@@ -23,6 +24,8 @@ namespace Ollama_assistance.Views
     /// </summary>
     public partial class ConfigWindow : Window
     {
+        private ConfigViewModel _configViewModel;
+        
         private static ConfigService configService;
         private Config config;
         public ConfigWindow()
@@ -30,14 +33,18 @@ namespace Ollama_assistance.Views
             configService = new ConfigService();
             config = configService.getConfig();
             InitializeComponent();
+
+            _configViewModel = new ConfigViewModel();
+            this.DataContext = _configViewModel;
+            
             this.Loaded += Window_Loaded;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            PythonDLLPath.Text = config.PyDLLPath;
-            PythonDLLsPath.Text = config.PyDLLsPath;
-            ShowSystemUsageToggle.IsChecked = config.ShowSystemUsage;
+            //PythonDLLPath.Text = config.PyDLLPath;
+            //PythonDLLsPath.Text = config.PyDLLsPath;
+            //ShowSystemUsageToggle.IsChecked = config.ShowSystemUsage;
         }
 
         private void saveBtnClick(object sender, RoutedEventArgs e) 
@@ -46,9 +53,10 @@ namespace Ollama_assistance.Views
             config.PyDLLsPath = PythonDLLsPath.Text.Replace("\"", "");
 
             //MessageBox.Show( (ShowSystemUsageToggle.IsChecked == true ? true : false).ToString() );
-            config.ShowSystemUsage = (ShowSystemUsageToggle.IsChecked == true ? true : false);
             
+            //config.ShowSystemUsage = (ShowSystemUsageToggle.IsChecked == true ? true : false);
 
+            
             
             configService.UpdateConfig(config);
             this.Close();

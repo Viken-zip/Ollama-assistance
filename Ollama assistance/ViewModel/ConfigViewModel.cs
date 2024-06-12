@@ -9,29 +9,41 @@ namespace Ollama_assistance.ViewModel
 {
     class ConfigViewModel
     {
-        private static ConfigService _configService;
+        private ConfigService _configService;
         private Config _config;
         
-        public ObservableCollection<PythonDLLPath> PythonDLLPaths { get; set; }
-        public ObservableCollection<PythonDLLsPath> PythonDLLsPaths { get; set; }
-        public ObservableCollection<ShowSystemUsage> ShowSystemUsages { get; set; }
+        public PythonDLLPath PythonDLLPath { get; set; }
+        public PythonDLLsPath PythonDLLsPath { get; set; }
+        public ShowSystemUsage ShowSystemUsage { get; set; }
         
         public ICommand UpdatePythonDLLPathCommand { get; set; }
         public ICommand UpdatePythonDLLsPathCommand { get; set; }
         public ICommand UpdateShowSystemUsageCommand { get; set; }
         
+        public ICommand SaveCommand { get; }
+        
         public ConfigViewModel()
         {
             _configService = new ConfigService();
             _config = _configService.getConfig();
-            
-            PythonDLLPaths = new ObservableCollection<PythonDLLPath>();
-            PythonDLLsPaths = new ObservableCollection<PythonDLLsPath>();
-            ShowSystemUsages = new ObservableCollection<ShowSystemUsage>();
+
+            PythonDLLPath = new PythonDLLPath { Path = _config.PyDLLPath };
+            PythonDLLsPath = new PythonDLLsPath { Path = _config.PyDLLsPath};
+            ShowSystemUsage = new ShowSystemUsage { Show = _config.ShowSystemUsage };
             
             UpdatePythonDLLPathCommand = new RelayCommand(UpdatePythonDLLPath);
             UpdatePythonDLLsPathCommand = new RelayCommand(UpdatePythonDLLsPath);
             UpdateShowSystemUsageCommand = new RelayCommand(UpdateShowSystemUsage);
+
+            SaveCommand = new RelayCommand(SaveChanges);
+        }
+
+        private void SaveChanges(object parameter)
+        {
+            _config.PyDLLPath = PythonDLLPath.Path;
+            _config.PyDLLsPath = PythonDLLsPath.Path;
+            _config.ShowSystemUsage = ShowSystemUsage.Show;
+            _configService.UpdateConfig(_config);
         }
         
         private void UpdatePythonDLLPath(object parameter)
@@ -40,8 +52,10 @@ namespace Ollama_assistance.ViewModel
             {
                 throw new ArgumentException("Parameter must be a string!", nameof(parameter));
             }
-            _config.PyDLLPath = newPath;
-            _configService.UpdateConfig(_config);
+
+            PythonDLLPath.Path = newPath;
+            //_config.PyDLLPath = newPath;
+            //_configService.UpdateConfig(_config);
         }
 
         private void UpdatePythonDLLsPath(object parameter)
@@ -50,8 +64,10 @@ namespace Ollama_assistance.ViewModel
             {
                 throw new ArgumentException("Parameter must be a string!", nameof(parameter));
             }
-            _config.PyDLLsPath = newPath;
-            _configService.UpdateConfig(_config);
+
+            PythonDLLsPath.Path = newPath;
+            //_config.PyDLLsPath = newPath;
+            //_configService.UpdateConfig(_config);
         }
 
         private void UpdateShowSystemUsage(object parameter)
@@ -60,11 +76,15 @@ namespace Ollama_assistance.ViewModel
             {
                 throw new ArgumentException("Parameter must be a bool!", nameof(parameter));
             }
-            _config.ShowSystemUsage = show;
-            _configService.UpdateConfig(_config);
+
+            ShowSystemUsage.Show = show;
+            //_config.ShowSystemUsage = show;
+            //_configService.UpdateConfig(_config);
         }
 
         public Config GetConfig() => _config;
+        
+        
     }
 
     internal class PythonDLLPath : INotifyPropertyChanged
