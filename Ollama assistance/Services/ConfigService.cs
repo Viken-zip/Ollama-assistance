@@ -19,6 +19,12 @@ namespace Ollama_assistance.Services
         
         [JsonPropertyName("ShowSystemUsage")]
         public bool ShowSystemUsage { get; set; }
+        
+        [JsonPropertyName("CurrentDisplayIndex")]
+        public int CurrentDisplayIndex { get; set; }
+        
+        [JsonPropertyName("CurrentCornerIndex")]
+        public int CurrentCornerIndex { get; set; }
     }
 
     public class ConfigService
@@ -46,7 +52,9 @@ namespace Ollama_assistance.Services
             {
                 PyDLLPath = "",
                 PyDLLsPath = "",
-                ShowSystemUsage = false
+                ShowSystemUsage = false,
+                CurrentDisplayIndex = 0,
+                CurrentCornerIndex = 3
             };
             string jsonString = JsonSerializer.Serialize(newConfig, new JsonSerializerOptions { WriteIndented = true });
             string filePath = GetConfigFilePath();
@@ -76,7 +84,7 @@ namespace Ollama_assistance.Services
 
         public void UpdateConfig(Config newConfig)
         {
-            SaveJson(newConfig); //dose this work?
+            SaveJson(newConfig); //dose this work? maybe, ask someone who cares.
         }
 
         public Config getConfig()
