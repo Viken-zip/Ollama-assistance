@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 
 namespace Ollama_assistance.Converters
 {
-    public class BooleanToVisibilityConverter
+    public class BooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
