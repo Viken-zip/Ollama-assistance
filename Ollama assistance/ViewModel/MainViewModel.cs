@@ -19,9 +19,11 @@ namespace Ollama_assistance.ViewModel
         public ObservableCollection<DisplayOption> Displays { get; set; }
         public ObservableCollection<CornerPosition> CornerPositions { get; set; }
         public ObservableCollection<string> ChatMessages { get; set; }
+        
         public ICommand SelectDisplayCommand { get; }
         public ICommand SelectCornerCommand { get; }
         public ICommand SendMessageCommand { get; set; }
+        
 
         public MainViewModel()
         {

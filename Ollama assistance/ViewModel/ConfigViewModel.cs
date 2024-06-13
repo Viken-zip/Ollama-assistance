@@ -7,7 +7,7 @@ using Ollama_assistance.Utils;
 
 namespace Ollama_assistance.ViewModel
 {
-    class ConfigViewModel
+    class ConfigViewModel : INotifyPropertyChanged
     {
         private ConfigService _configService;
         private Config _config;
@@ -84,7 +84,12 @@ namespace Ollama_assistance.ViewModel
 
         public Config GetConfig() => _config;
         
-        
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     internal class PythonDLLPath : INotifyPropertyChanged

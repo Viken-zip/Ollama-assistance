@@ -30,30 +30,24 @@ namespace Ollama_assistance
     public partial class MainWindow : Window
     {
         private MainViewModel _viewModel;
-        
-        private static ConfigService ConfigService;
-        private Config config;
-
+        private ConfigViewModel _configViewModel;
         public ObservableCollection<string> ChatMessages { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             _viewModel = new MainViewModel();
-            DataContext = _viewModel;
+            this.DataContext = _viewModel;
             ChatMessages = new ObservableCollection<string>(ChatHistoryService.LoadChatHistory());
-            ConfigService = new ConfigService();
-            config = ConfigService.getConfig();
             this.Loaded += MainWindow_Loaded;
 
-            if (config.ShowSystemUsage) //this needs a remake
+            _configViewModel = new ConfigViewModel();
+            var config = _configViewModel.GetConfig();
+            
+            if (config.ShowSystemUsage) //this should be fine as long show SystemUsage isn't used with OnPropertyChanged
             {
                 Thread SystemUsageThread = new Thread(SystemUsage);
                 SystemUsageThread.IsBackground = true;
                 SystemUsageThread.Start();
-            }
-            else
-            {
-                SystemUsagePanel.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -70,10 +64,6 @@ namespace Ollama_assistance
             }
             chatScrollViewer.ScrollToBottom();
             PythonIntegration.StartServer();
-
-            //Thread PCUsageThread = new Thread(PCUsage);
-            //PCUsageThread.Start();
-            //SetWindowPosition(0);
         }
 
         private string clearSenderOfMessage(string message)
@@ -104,8 +94,6 @@ namespace Ollama_assistance
             this.Height = workingArea.Height / 2;
             this.Left = workingArea.Left + (workingArea.Width - (this.Width + 25));
             this.Top = workingArea.Top + (workingArea.Height - (this.Height + 25));
-
-            //MessageBox.Show($"{this.Width}x{this.Height}");
         }
 
         private void messageInputBox_keyDown (object sender, KeyEventArgs e)

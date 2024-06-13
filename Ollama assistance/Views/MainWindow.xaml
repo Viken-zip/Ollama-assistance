@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ollama_assistance"
+        xmlns:converters="clr-namespace:Ollama_assistance.Converters"
+        xmlns:viewModel="clr-namespace:Ollama_assistance.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -11,6 +13,10 @@
         Background="Transparent"
         Icon="/ollama assistance icon.ico"
         Title="Ollama assistance" Height="696" Width="512">
+    <Window.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <viewModel:ConfigViewModel x:Key="ConfigViewModel" />
+    </Window.Resources>
     <Border BorderBrush="#343536" BorderThickness="2" CornerRadius="4">
         <Grid Background="#030303" >
             <Grid.RowDefinitions>
@@ -20,7 +26,7 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" >
+            <Grid Grid.Row="0" DataContext="{StaticResource ConfigViewModel}" >
                 <TextBlock
                         Foreground="#818384"
                         Text="AI GUI"
@@ -28,19 +34,19 @@
                         VerticalAlignment="Center"
                         />
 
-
-
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Name="SystemUsagePanel" >
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Name="SystemUsagePanel" 
+                            Visibility="{ Binding ShowSystemUsage.Show, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter} }" >
                     <TextBlock
                         Name="CpuUsage"
                         Foreground="LightGreen"
                         Text="CPU 0%"
+                        Margin="0 0 5 0"
                         />
                     <TextBlock
                         Name="RamUsage"
                         Foreground="LightBlue"
                         Text="RAM 0GB"
-                        Margin="10 0"
+                        Margin="5 0 0 0"
                         />
                 </StackPanel>
 
