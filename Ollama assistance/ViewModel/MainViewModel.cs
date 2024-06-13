@@ -125,7 +125,7 @@ namespace Ollama_assistance.ViewModel
             var screens = Screen.AllScreens;
             for (int i = 0; i < screens.Length; i++)
             {
-                Displays.Add(new DisplayOption { Name = $"Display {i + 1}", Index = i });
+                Displays.Add(new DisplayOption { Name = $"Display {i + 1}", Index = i }); //don't get confused here, i + 1 is just for simplicity for the user
             }
         }
 
@@ -145,7 +145,19 @@ namespace Ollama_assistance.ViewModel
 
         private void UpdateWindowPosition()
         {
-            var screen = Screen.AllScreens[CurrentDisplayIndex];
+            var screens = Screen.AllScreens;
+            Screen screen;
+            if (screens.Length >= CurrentDisplayIndex)
+            {
+                screen = Screen.AllScreens[CurrentDisplayIndex];
+            }
+            else
+            {
+                screen = Screen.AllScreens[0];
+                _config.CurrentCornerIndex = 0;
+                _configService.UpdateConfig(_config);
+            }
+
             var window = System.Windows.Application.Current.MainWindow;
             var workingArea = screen.WorkingArea;
 
