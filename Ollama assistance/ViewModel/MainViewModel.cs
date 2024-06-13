@@ -15,7 +15,9 @@ namespace Ollama_assistance.ViewModel
 {
     class MainViewModel : INotifyPropertyChanged
     {
-        // position of the application
+        private ConfigService _configService;
+        private Config _config;
+        
         public ObservableCollection<DisplayOption> Displays { get; set; }
         public ObservableCollection<CornerPosition> CornerPositions { get; set; }
         public ObservableCollection<string> ChatMessages { get; set; }
@@ -27,6 +29,9 @@ namespace Ollama_assistance.ViewModel
 
         public MainViewModel()
         {
+            _configService = new ConfigService();
+            _config = _configService.getConfig();
+            
             Displays = new ObservableCollection<DisplayOption>();
             CornerPositions = new ObservableCollection<CornerPosition>();
             SelectDisplayCommand = new RelayCommand(SelectDisplay);
@@ -41,9 +46,10 @@ namespace Ollama_assistance.ViewModel
             PopulateDisplays();
             PopulateCornerPositions();
 
-            CurrentDisplayIndex = 0;
-            CurrentCornerIndex = 3; // 0 top left | 1 top right | 2 bottom left | 3 bottom right
+            CurrentDisplayIndex = _config.CurrentDisplayIndex;
+            CurrentCornerIndex = _config.CurrentCornerIndex; // 0 top left | 1 top right | 2 bottom left | 3 bottom right
 
+            UpdateWindowPosition();
         }
 
         private int _currentDisplayIndex;
@@ -126,11 +132,15 @@ namespace Ollama_assistance.ViewModel
         private void SelectDisplay(object parameter)
         {
             CurrentDisplayIndex = (int)parameter;
+            _config.CurrentDisplayIndex = (int)parameter;
+            _configService.UpdateConfig(_config);
         }
 
         private void SelectCorner(object parameter)
         {
             CurrentCornerIndex = (int)parameter;
+            _config.CurrentCornerIndex = (int)parameter;
+            _configService.UpdateConfig(_config);
         }
 
         private void UpdateWindowPosition()
