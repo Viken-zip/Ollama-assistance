@@ -1,20 +1,14 @@
 ﻿import ollama
-
 import os
 import time
-import random
 import win32pipe, win32file
-
 import numpy as np
 import speech_recognition as sr
 import whisper
 import torch
-
+import threading
 from datetime import datetime, timedelta
 from queue import Queue
-from time import sleep
-
-import threading
 
 # pipes to send from python to C#
 stt_loaded_pipe_name = r'\\.\pipe\STTLoaded_pipe'
@@ -62,7 +56,7 @@ def AskOllama(question):
         'content': question,
     })
     response = ollama.chat(
-        model='llama3', #llama3 dolphin-mixtral dolphin-llama3 llama3-prompt1 llama3-prompt-demon1
+        model='llama3',
         messages=messages
         )
     return response['message']['content']
@@ -117,13 +111,7 @@ def STT():
                 transcription[-1] = text
 
             os.system('cls' if os.name == 'nt' else 'clear')
-            #for line in transcription: !
-                #line.encode() 
-                #createPipe(transcription[-1], stt_result_pipe_name) !
-                
-
-                # add to pipe(fifo)
-            sleep(0.25) # the cpu also needs to take some breaks man.
+            time.sleep(0.25) # the cpu also needs to take some breaks man.
 
 STT_Thread = threading.Thread(target=STT) #initaliziong thread for STT.
 
@@ -161,29 +149,17 @@ def check_pipes():
             result = (win32file.ReadFile(pipe, 64 * 1024)[1].decode()).lower()
             if "true" in result:
                 STTOn = True
-                #createPipe("result was true", ai_answer_name)
                 STT_Thread.start()
             elif "false" in result:
                 STTOn = False
                 
-            #createPipe(str(result), ai_answer_name)
             win32file.CloseHandle(pipe)
         except Exception as e:
-            #createPipe("try of STT pipe Exception", ai_answer_name)
             time.sleep(0.5)
                 
 
 def start_server():
-    while True:
-        if os.path.exists(shutdown_flag):
-            os.remove(shutdown_flag)
-            break
-
-    #if not win32pipe.WaitNamedPipe(ai_question_pipe_name, 1000):
-    #    continue
-        check_pipes()
-        #pipe("hello?", ai_answer_name)
-        #time.sleep(0.25)
+    check_pipes()
 
 if __name__=='__main__':
     start_server()
