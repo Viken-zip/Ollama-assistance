@@ -84,24 +84,6 @@ namespace Ollama_assistance.Views
 
         //this is for the python pipe server test
         //private bool serverOn = false;
-        private void pythonServerBtnClick(object sender, RoutedEventArgs e)
-        {
-            /*if (serverOn)
-            {
-                //STTIntegration.StopSTTPythonServer();
-                PythonIntegration.StopServer();
-            }
-            else 
-            { 
-                //STTIntegration.StartSTTPythonServer();
-                PythonIntegration.StartServer();
-                Thread.Sleep(20000);
-                System.Windows.Forms.MessageBox.Show("send message");
-
-                PythonIntegration.AskAI("hi, who are you?");
-            }
-            serverOn = !serverOn;*/
-            PythonIntegration.StopServer();
-        }
+        
     }
 }

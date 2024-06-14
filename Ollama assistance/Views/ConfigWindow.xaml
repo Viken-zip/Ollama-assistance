@@ -36,7 +36,6 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.Row="0" Text="Config Window" Foreground="White" ></TextBlock>
 
@@ -83,13 +82,6 @@
             <Button Grid.Column="1" Width="50" Height="25" Content="cancel" Click="cancelBtnClick" ></Button>
         </Grid>
 
-        <Grid Grid.Row="5" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="This is a experimental python pipe server" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Grid.Column="1" Content="Run/Stop python pipe server" Click="pythonServerBtnClick" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Grid>
+        
     </Grid>
 </Window>
