@@ -32,6 +32,9 @@ namespace Ollama_assistance
         private MainViewModel _viewModel;
         private ConfigViewModel _configViewModel;
         public ObservableCollection<string> ChatMessages { get; set; }
+
+        //private bool IsMicOn = false; // need to be made in mainViewModel
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -64,6 +67,24 @@ namespace Ollama_assistance
             }
             chatScrollViewer.ScrollToBottom();
             PythonIntegration.StartServer();
+
+            MicIsOn(GlobalStateService.Instance.IsMicrophoneOn);
+            this.KeyUp += new KeyEventHandler(MicKey_KeyUp);
+        }
+
+        private void MicKey_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.M)
+            {
+                GlobalStateService.Instance.IsMicrophoneOn = !GlobalStateService.Instance.IsMicrophoneOn;
+                MicIsOn(GlobalStateService.Instance.IsMicrophoneOn);
+                PythonIntegration.CheckMicrophoneSTT();
+            }
+        }
+        
+        public void MicIsOn(bool isMicOn)
+        {
+            MicStatus.Foreground = new SolidColorBrush( isMicOn ? Colors.LightGreen : Colors.Red );  
         }
 
         private string clearSenderOfMessage(string message)

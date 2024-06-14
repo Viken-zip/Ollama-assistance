@@ -77,55 +77,64 @@
                 <!--<StackPanel Orientation="Horizontal" Background="#1A1A1B" VerticalAlignment="Center" >
                         <Button Content="settings" Height="auto" VerticalAlignment="Center" />
                     </StackPanel>-->
-                <Menu Background="#1A1A1B" Foreground="#818384" >
-                    <MenuItem Header="Settings" >
-                        <MenuItem Header="Display" ItemsSource="{Binding Displays}" Foreground="Black" >
-                            <MenuItem.ItemTemplate>
-                                <DataTemplate>
-                                    <MenuItem 
-                                        Header="{Binding Name}" 
-                                        Command="{Binding DataContext.SelectDisplayCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                                        CommandParameter="{Binding Index}" >
-                                        <MenuItem.Style>
-                                            <Style TargetType="MenuItem" >
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsSelected}" Value="True" >
-                                                        <Setter Property="FontWeight" Value="Bold" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </MenuItem.Style>
-                                    </MenuItem>
-                                </DataTemplate>
-                            </MenuItem.ItemTemplate>
-                        </MenuItem>
-                        <MenuItem Header="Display position" ItemsSource="{Binding CornerPositions}" Foreground="Black" >
-                            <MenuItem.ItemTemplate>
-                                <DataTemplate>
-                                    <MenuItem
-                                        Header="{Binding Name}"
-                                        Command="{Binding DataContext.SelectCornerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                        CommandParameter="{Binding Index}"
-                                        >
-                                        <MenuItem.Style>
-                                            <Style TargetType="MenuItem">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                        <Setter Property="IsChecked" Value="True"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </MenuItem.Style>
-                                    </MenuItem>
-                                </DataTemplate>
-                            </MenuItem.ItemTemplate>
-                        </MenuItem>
-                        <MenuItem Header="Color" Foreground="Black" >
+                <Grid Background="#1A1A1B" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Menu Background="#1A1A1B" Foreground="#818384" Grid.Column="0" >
+                        <MenuItem Header="Settings" >
+                            <MenuItem Header="Display" ItemsSource="{Binding Displays}" Foreground="Black" >
+                                <MenuItem.ItemTemplate>
+                                    <DataTemplate>
+                                        <MenuItem 
+                                            Header="{Binding Name}" 
+                                            Command="{Binding DataContext.SelectDisplayCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                            CommandParameter="{Binding Index}" >
+                                            <MenuItem.Style>
+                                                <Style TargetType="MenuItem" >
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True" >
+                                                            <Setter Property="FontWeight" Value="Bold" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </MenuItem.Style>
+                                        </MenuItem>
+                                    </DataTemplate>
+                                </MenuItem.ItemTemplate>
+                            </MenuItem>
+                            <MenuItem Header="Display position" ItemsSource="{Binding CornerPositions}" Foreground="Black" >
+                                <MenuItem.ItemTemplate>
+                                    <DataTemplate>
+                                        <MenuItem
+                                            Header="{Binding Name}"
+                                            Command="{Binding DataContext.SelectCornerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding Index}"
+                                            >
+                                            <MenuItem.Style>
+                                                <Style TargetType="MenuItem">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                            <Setter Property="IsChecked" Value="True"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </MenuItem.Style>
+                                        </MenuItem>
+                                    </DataTemplate>
+                                </MenuItem.ItemTemplate>
+                            </MenuItem>
+                            <MenuItem Header="Color" Foreground="Black" >
 
+                            </MenuItem>
+                            <MenuItem Header="config" Click="configBtnClick" Foreground="Black" />
                         </MenuItem>
-                        <MenuItem Header="config" Click="configBtnClick" Foreground="Black" />
-                    </MenuItem>
-                </Menu>
+                    </Menu>
+                    
+                    <TextBlock Grid.Column="1" Name="MicStatus" Foreground="red" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Text="mic"/>
+                </Grid>
             </Border>
 
             <ScrollViewer Grid.Row="2" Background="#030303" Name="chatScrollViewer" >

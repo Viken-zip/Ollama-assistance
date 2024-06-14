@@ -9,6 +9,7 @@ using Python.Runtime;
 using System.Windows;
 using System.Threading;
 using System.IO.Pipes;
+using System.Windows.Threading;
 using Ollama_assistance.Views;
 
 namespace Ollama_assistance
@@ -164,15 +165,35 @@ namespace Ollama_assistance
             createPipe(AIQuestionPipePath, question);
         }
 
+        public static void CheckMicrophoneSTT()
+        {
+            bool IsMicOn = GlobalStateService.Instance.IsMicrophoneOn;
+            createPipe(STTOnPipePath, IsMicOn.ToString());
+        }
+
         // run when gest message from pipe
         static void HandleSTTLoaded(string result)
         {
-
+            
         }
 
         static void HandleSTTResult(string result)
         {
-
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+                if (mainWindow != null)
+                {
+                    mainWindow.RenderMessage(result, "User");
+                    mainWindow.AddMessageToHistory(result, "User");
+                }
+                else
+                {
+                    MessageBox.Show("MainWindow is not available");
+                }
+            });
+            //MessageBox.Show(result);
+            AskAI(result);
         }
 
         static void HandleAIAnswer(string result)
