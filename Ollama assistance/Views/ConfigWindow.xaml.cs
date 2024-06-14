@@ -82,8 +82,7 @@ namespace Ollama_assistance.Views
             }
         }
 
-        //this is for the python pipe server test
-        //private bool serverOn = false;
+        
         
     }
 }
