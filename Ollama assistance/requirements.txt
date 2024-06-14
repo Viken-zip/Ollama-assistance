@@ -1,0 +1,4 @@
+﻿numpy== 1.26.4
+speech_recognition==3.10.0
+whisper==20231117
+torch==2.3.0+cu121
