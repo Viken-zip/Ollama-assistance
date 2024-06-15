@@ -83,8 +83,7 @@ namespace Ollama_assistance.ViewModel
         {
             return !string.IsNullOrWhiteSpace(NewMessage);
         }
-
-        //corner to render application shinanigans
+        
         public int CurrentCornerIndex
         {
             get => _currentCornerIndex;
@@ -109,9 +108,7 @@ namespace Ollama_assistance.ViewModel
                 OnPropertyChanged(nameof(NewMessage));
             }
         }
-
         
-
         private void PopulateCornerPositions()
         {
             CornerPositions.Add(new CornerPosition { Name = "Top Left", Index = 0 });
@@ -189,9 +186,7 @@ namespace Ollama_assistance.ViewModel
 
             window.Width = Math.Min(window.Width, workingArea.Width);
             window.Height = Math.Min(window.Height, workingArea.Height);
-
-            //window.Width = workingArea.Width / 5;
-            //window.Height = workingArea.Height / 2;
+            
             window.Left = newLeft;
             window.Top = newTop;
 

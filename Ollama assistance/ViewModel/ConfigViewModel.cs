@@ -54,8 +54,6 @@ namespace Ollama_assistance.ViewModel
             }
 
             PythonDLLPath.Path = newPath;
-            //_config.PyDLLPath = newPath;
-            //_configService.UpdateConfig(_config);
         }
 
         private void UpdatePythonDLLsPath(object parameter)
@@ -66,8 +64,6 @@ namespace Ollama_assistance.ViewModel
             }
 
             PythonDLLsPath.Path = newPath;
-            //_config.PyDLLsPath = newPath;
-            //_configService.UpdateConfig(_config);
         }
 
         private void UpdateShowSystemUsage(object parameter)
@@ -78,8 +74,6 @@ namespace Ollama_assistance.ViewModel
             }
 
             ShowSystemUsage.Show = show;
-            //_config.ShowSystemUsage = show;
-            //_configService.UpdateConfig(_config);
         }
 
         public Config GetConfig() => _config;

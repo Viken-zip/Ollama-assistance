@@ -48,15 +48,6 @@ namespace Ollama_assistance
         public static void StartServer()
         {
             PythonTask = Task.Run(() => StartPythonServer(), cancellationTokenSource.Token);
-            //var readTask = ReadFromPipeAsync(fifoPath);
-
-            /*var readTasks = new List<Task>
-            {
-                ReadFromPipeAsync(STTLoadedPipePath, "STTLoaded"),
-                ReadFromPipeAsync(STTResultPipePath, "STTResult"),
-                ReadFromPipeAsync(AIAnswerPipePath, "AIAnswer")
-            };
-            Task.WhenAll(readTasks);*/
 
             Task.Run(() => ReadFromPipeAsync(STTLoadedPipePath, "STTLoaded"), cancellationTokenSource.Token);
             Task.Run(() => ReadFromPipeAsync(STTResultPipePath, "STTResult"), cancellationTokenSource.Token);
@@ -192,14 +183,11 @@ namespace Ollama_assistance
                     MessageBox.Show("MainWindow is not available");
                 }
             });
-            //MessageBox.Show(result);
             AskAI(result);
         }
 
         static void HandleAIAnswer(string result)
         {
-            //MessageBox.Show(result);
-
             Application.Current.Dispatcher.Invoke(() =>
             {
                 MainWindow mainWindow = Application.Current.MainWindow as MainWindow;

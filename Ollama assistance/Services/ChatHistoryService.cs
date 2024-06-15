@@ -73,15 +73,6 @@ namespace Ollama_assistance.Services
 
             return messages;
         }
-        /*public static List<string> LoadChatHistory()
-        {
-            string filePath = GetChatHistoryFilePath();
-            if (File.Exists(filePath))
-            {
-                return new List<string>(File.ReadAllLines(filePath));
-            }
-            return new List<string>();
-        }*/
 
         public static void SaveMessageToHistory(string message)
         {

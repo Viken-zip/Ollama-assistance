@@ -21,8 +21,6 @@ namespace Ollama_assistance.Commands
         public bool CanExecute(object parameter)
         {
             return !string.IsNullOrWhiteSpace(parameter as string);
-            //return parameter != null && parameter is string;
-            //return !string.IsNullOrWhiteSpace(_viewModel.NewMessage);
         }
 
         public void Execute(object parameter)

@@ -32,8 +32,6 @@ namespace Ollama_assistance
         private MainViewModel _viewModel;
         private ConfigViewModel _configViewModel;
         public ObservableCollection<string> ChatMessages { get; set; }
-
-        //private bool IsMicOn = false; // need to be made in mainViewModel
         
         public MainWindow()
         {
@@ -149,18 +147,6 @@ namespace Ollama_assistance
 
 
                 PythonIntegration.AskAI(message);
-                /*try
-                {
-                    string AIAnswer = await OllamaIntegration.AskOllama(message);
-                    RenderMessage(AIAnswer, "AI");
-
-                    _viewModel.SendMessage("AI: " + AIAnswer);
-                    
-                }
-                catch (Exception ex) 
-                {
-                    MessageBox.Show($"An error occurred: {ex.Message}");
-                }*/
             }
         }
 

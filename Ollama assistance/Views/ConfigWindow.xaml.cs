@@ -36,27 +36,12 @@ namespace Ollama_assistance.Views
 
             _configViewModel = new ConfigViewModel();
             this.DataContext = _configViewModel;
-            
-            this.Loaded += Window_Loaded;
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //PythonDLLPath.Text = config.PyDLLPath;
-            //PythonDLLsPath.Text = config.PyDLLsPath;
-            //ShowSystemUsageToggle.IsChecked = config.ShowSystemUsage;
-        }
-
+        
         private void saveBtnClick(object sender, RoutedEventArgs e) 
         { 
             config.PyDLLPath = PythonDLLPath.Text.Replace("\"", ""); // ill just keep the replace there just in case, might remove soon
             config.PyDLLsPath = PythonDLLsPath.Text.Replace("\"", "");
-
-            //MessageBox.Show( (ShowSystemUsageToggle.IsChecked == true ? true : false).ToString() );
-            
-            //config.ShowSystemUsage = (ShowSystemUsageToggle.IsChecked == true ? true : false);
-
-            
             
             configService.UpdateConfig(config);
             this.Close();
@@ -81,8 +66,5 @@ namespace Ollama_assistance.Views
                 }
             }
         }
-
-        
-        
     }
 }
