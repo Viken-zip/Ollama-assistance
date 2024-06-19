@@ -21,6 +21,7 @@ using Ollama_assistance.Services;
 using Ollama_assistance.Views;
 using System.Threading;
 using Microsoft.VisualBasic.Devices;
+using Keyboard = System.Windows.Input.Keyboard;
 
 namespace Ollama_assistance
 {
@@ -72,7 +73,7 @@ namespace Ollama_assistance
 
         private void MicKey_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.M)
+            if (e.Key == Key.M && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 GlobalStateService.Instance.IsMicrophoneOn = !GlobalStateService.Instance.IsMicrophoneOn;
                 MicIsOn(GlobalStateService.Instance.IsMicrophoneOn);
