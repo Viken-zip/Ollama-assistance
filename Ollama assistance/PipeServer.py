@@ -31,7 +31,7 @@ class Config:
 
 config = Config(
     1000,   # energy_threshold
-    2,      # record_timeout
+    20,      # record_timeout
     3       # phrase_timeout
 )
 
