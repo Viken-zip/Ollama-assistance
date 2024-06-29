@@ -12,6 +12,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         Icon="/ollama assistance icon.ico"
+        Deactivated="Window_Deactivated"
         Title="Ollama assistance" Height="696" Width="512">
     <Window.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -146,7 +147,7 @@
                         <TextBlock Text="hello, how can i help you today?" Background="LightBlue" ></TextBlock>
                     </Border>
                     <Border CornerRadius="8" BorderThickness="3" BorderBrush="white" Margin="200,5,5,5">
-                        <TextBlock Text="tell me 3 thasty things." Background="white" ></TextBlock>
+                        <TextBlock Text="tell me 3 tasty things." Background="white" ></TextBlock>
                     </Border>
                     <Border CornerRadius="8" BorderThickness="3" BorderBrush="LightBlue" Margin="5,5,200,5">
                         <TextBlock Text="okay, there is cookies, cakes and candy." Background="LightBlue" ></TextBlock>

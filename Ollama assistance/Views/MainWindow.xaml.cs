@@ -53,6 +53,12 @@ namespace Ollama_assistance
             }
         }
 
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = true;
+        }
+
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
