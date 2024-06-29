@@ -148,7 +148,6 @@ namespace Ollama_assistance
                 RenderMessage(message, "User");
 
                 messageInputBox.Clear();
-                chatScrollViewer.ScrollToBottom();
 
                 _viewModel.SendMessage("User: " + message);
 
@@ -178,6 +177,8 @@ namespace Ollama_assistance
                 };
 
                 chatContainer.Children.Add(border);
+                
+                chatScrollViewer.ScrollToBottom();
             }
         }
 
